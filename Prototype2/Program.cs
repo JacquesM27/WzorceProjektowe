@@ -18,14 +18,23 @@ Circle circle1 = new()
 Circle circle2 = (Circle)circle1.Clone();
 Circle circle3 = (Circle)circle1.DeepClone();
 
-Console.WriteLine($"Circle1 X={circle1.X}, Y={circle1.Y}, Color={circle1.Color}, Border={circle1.Border.Size}");
-Console.WriteLine($"Circle2 X={circle2.X}, Y={circle2.Y}, Color={circle2.Color}, Border={circle2.Border.Size}");
-Console.WriteLine($"Circle3 X={circle3.X}, Y={circle3.Y}, Color={circle3.Color}, Border={circle3.Border.Size}");
+Console.WriteLine("Circle1 " + circle1.ToString());
+Console.WriteLine("Circle2 " + circle2.ToString());
+Console.WriteLine("Circle3 " + circle3.ToString());
 Console.WriteLine("\n");
+
 circle1.X = 0;
 circle1.Color = "Black";
 circle1.Border.Size = "1rem";
+Console.WriteLine("Circle1 " + circle1.ToString());
+Console.WriteLine("Circle2 " + circle2.ToString());
+Console.WriteLine("Circle3 " + circle3.ToString());
+Console.WriteLine("\n");
 
-Console.WriteLine($"Circle1 X={circle1.X}, Y={circle1.Y}, Color={circle1.Color}, Border={circle1.Border.Size}");
-Console.WriteLine($"Circle2 X={circle2.X}, Y={circle2.Y}, Color={circle2.Color}, Border={circle2.Border.Size}");
-Console.WriteLine($"Circle3 X={circle3.X}, Y={circle3.Y}, Color={circle3.Color}, Border={circle3.Border.Size}");
+Shape shape = circle2.Clone();
+shape.Border.Size = "99999rem";
+shape.Y = 99;
+Console.WriteLine("Circle1 " + circle1.ToString());
+Console.WriteLine("Circle2 " + circle2.ToString());
+Console.WriteLine("Circle3 " + circle3.ToString());
+Console.WriteLine("shape " + shape.ToString());
