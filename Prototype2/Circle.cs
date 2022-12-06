@@ -37,5 +37,10 @@ namespace Prototype2
             };
             return circle;
         }
+
+        public override string ToString()
+        {
+            return $"X={X}, Y={Y}, Color={Color}, Border={Border.Size}";
+        }
     }
 }
