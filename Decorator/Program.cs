@@ -10,3 +10,5 @@ var compressionDataSource = new CompressionDecorator(encryptorDataSource);
 Console.WriteLine(compressionDataSource.ReadData());
 
 
+
+
