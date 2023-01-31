@@ -4,7 +4,7 @@ using Command;
 Console.WriteLine("Hello, World!");
 
 
-Invoker invoker = new Invoker();
+Invoker invoker = new();
 invoker.SetCommand(new SimpleCommand("Jameson"));
 invoker.DoSomething();
 invoker.SetCommand(new ProCommand(new ProComponent(), "Hi, I'm Barbra"));
