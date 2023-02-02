@@ -4,7 +4,7 @@ using Observer;
 Console.WriteLine("Hello, World!");
 
 
-Subject subject = new();
+Subject subject = new();//publisher
 FirstConcreteObserver firstObserver = new();
 SecondConcreteObserver secondObserver = new();
 
