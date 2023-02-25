@@ -5,7 +5,7 @@ Console.WriteLine("Hello, World!");
 
 Component1 Component1 = new();
 Component2 Component2 = new();
-ConcreteMediator concreteMediator = new ConcreteMediator(Component1, Component2);
+ConcreteMediator concreteMediator = new (Component1, Component2);
 Console.WriteLine("Somebody run method A");
 Component1.DoA();
 
