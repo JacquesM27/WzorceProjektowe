@@ -1,6 +1,8 @@
-﻿using Mediator2.Model;
+﻿using Mediator2.Handlers.Products;
+using Mediator2.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SimpleSoft.Mediator;
 
 namespace Mediator2.Controllers
 {
@@ -8,6 +10,12 @@ namespace Mediator2.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
+        private readonly IMediator _mediator;
+        public ProductsController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
         [HttpGet]
         public async Task<IEnumerable<ProductModel>> SearchAsync([FromQuery] string filterQ,
                                                                  [FromQuery] int? skip,
@@ -26,7 +34,13 @@ namespace Mediator2.Controllers
         [HttpPost]
         public async Task<CreateProductResultModel> CreateAsync([FromBody] CreateProductModel model, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var result = await _mediator.SendAsync(new CreateProductCommand
+            {
+                Code = model.Code,
+                Name = model.Name,
+                Price = model.Price
+            }, cancellationToken);
+            return new CreateProductResultModel { Id = result.Id };
         }
 
         [HttpPut("{id:guid}")]
