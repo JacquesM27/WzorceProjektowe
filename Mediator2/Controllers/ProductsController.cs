@@ -28,7 +28,14 @@ namespace Mediator2.Controllers
         [HttpGet("{id:guid}")]
         public async Task<ProductModel> GetByIdAsync([FromRoute] Guid id, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var result = await _mediator.FetchAsync(new GetProductByIdQuery { ProductId = id }, cancellationToken);
+            return new ProductModel
+            {
+                Id = result.Id,
+                Code = result.Code,
+                Name = result.Name,
+                Price = result.Price
+            };
         }
 
         [HttpPost]
