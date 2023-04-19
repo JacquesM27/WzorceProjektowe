@@ -8,9 +8,12 @@ namespace Mediator2.Handlers.Products
     public class CreateProductCommandHandler : ICommandHandler<CreateProductCommand, CreateProductResult>
     {
         private readonly AppDbContext _dbContext;
-        public CreateProductCommandHandler(AppDbContext dbContext)
+        private readonly IMediator _mediator;
+
+        public CreateProductCommandHandler(AppDbContext dbContext, IMediator mediator)
         {
             _dbContext = dbContext;
+            _mediator = mediator;
         }
 
         public async Task<CreateProductResult> HandleAsync(CreateProductCommand cmd, CancellationToken ct)
@@ -24,6 +27,14 @@ namespace Mediator2.Handlers.Products
 
             var externalId = Guid.NewGuid();
             await products.AddAsync(new ProductEntity
+            {
+                ExternalId = externalId,
+                Code = cmd.Code,
+                Name = cmd.Name,
+                Price = cmd.Price
+            }, ct);
+
+            await _mediator.BroadcastAsync(new CreatedProductEvent
             {
                 ExternalId = externalId,
                 Code = cmd.Code,
