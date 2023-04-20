@@ -1,4 +1,6 @@
-﻿using Mediator3.DTO;
+﻿using Mediator3.CQRS.Order.Command.ProcessPayment;
+using Mediator3.CQRS.Order.Command.ShipOrder;
+using Mediator3.DTO;
 using Mediator3.Mediator;
 
 namespace Mediator3.CQRS.Order.Command.PlaceOrder
@@ -12,9 +14,27 @@ namespace Mediator3.CQRS.Order.Command.PlaceOrder
             _mediator = mediator;
         }
 
-        public Task<PlaceOrderResult> Handle(PlaceOrderCommand request)
+        public async Task<PlaceOrderResult> Handle(PlaceOrderCommand request)
         {
-            throw new NotImplementedException();
+            var paymentResult = await _mediator.Send(new ProcessPaymentCommand
+            {
+                OrderId = request.OrderId,
+                CustomerId = request.CustomerId,
+                TotalAmount = request.Items.Sum(c => c.Quantity * c.Price),
+            });
+
+            if (!paymentResult.Success) 
+            {
+                throw new Exception("Error while processing payment.");
+            }
+
+            var shippingResult = await _mediator.Send(new ShipOrderCommand
+            {
+                OrderId = request.OrderId,
+                CustomerId = request.CustomerId,
+                Items = request.Items,
+            });
+            return new PlaceOrderResult { Success = paymentResult.Success };
         }
     }
 }
