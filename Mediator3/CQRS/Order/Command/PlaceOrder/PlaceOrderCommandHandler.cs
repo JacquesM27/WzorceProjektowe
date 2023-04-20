@@ -1,7 +1,7 @@
 ﻿using Mediator3.DTO;
 using Mediator3.Mediator;
 
-namespace Mediator3.CQRS.Order.Command
+namespace Mediator3.CQRS.Order.Command.PlaceOrder
 {
     public class PlaceOrderCommandHandler : IRequestHandler<PlaceOrderCommand, PlaceOrderResult>
     {

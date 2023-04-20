@@ -2,7 +2,7 @@
 using Mediator3.Mediator;
 using Mediator3.Model;
 
-namespace Mediator3.CQRS.Order.Command
+namespace Mediator3.CQRS.Order.Command.PlaceOrder
 {
     public class PlaceOrderCommand : IRequest<PlaceOrderResult>
     {
